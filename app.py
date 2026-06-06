@@ -7,7 +7,7 @@ from torchvision import transforms
 from PIL import Image
 from flask import Flask, request, jsonify, render_template
 
-# ── Model Definition (same as train_by_colab.py) ──────────────────────────────
+
 class LeafCNN(nn.Module):
     def __init__(self, num_classes):
         super(LeafCNN, self).__init__()
@@ -29,12 +29,10 @@ class LeafCNN(nn.Module):
         return self.classifier(self.features(x))
 
 
-# ── Setup ──────────────────────────────────────────────────────────────────────
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "best_model.pth")
 DATA_DIR   = os.path.join(BASE_DIR, "dataset_split_2", "train")
 
-# Class names from training folder order (sorted, same as ImageFolder)
 CLASS_NAMES = sorted([
     d for d in os.listdir(DATA_DIR)
     if os.path.isdir(os.path.join(DATA_DIR, d))
@@ -48,7 +46,6 @@ model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
 model.to(device)
 model.eval()
 
-# Same transform as validation in training script
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
@@ -56,7 +53,6 @@ transform = transforms.Compose([
                          [0.229, 0.224, 0.225]),
 ])
 
-# ── Flask App ──────────────────────────────────────────────────────────────────
 app = Flask(__name__)
 
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp", "bmp"}
