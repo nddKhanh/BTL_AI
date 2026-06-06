@@ -1,3 +1,6 @@
 dataset/
 dataset.rar
 .venv/
+.idea/
+__pycache__/
+Dataset2/

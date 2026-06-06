@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leaf Disease Classifier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="bg-blur bg-blur-1"></div>
+  <div class="bg-blur bg-blur-2"></div>
+
+  <div class="wrapper">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <span class="logo-icon">🌿</span>
+        <div>
+          <h1>Leaf Classifier</h1>
+          <p>AI-powered plant disease detection</p>
+        </div>
+      </div>
+      <div class="badge">LeafCNN · 5 Classes</div>
+    </header>
+
+    <!-- Main Card -->
+    <main class="card">
+      <!-- Upload Zone -->
+      <div class="upload-section">
+        <div class="drop-zone" id="dropZone">
+          <div class="drop-icon" id="dropIcon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 4L24 32M24 4L14 14M24 4L34 14" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6 36V42H42V36" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="drop-preview" id="dropPreview" style="display:none;">
+            <img id="previewImg" src="" alt="Preview" />
+            <div class="preview-overlay">
+              <span>Thay đổi ảnh</span>
+            </div>
+          </div>
+          <div class="drop-text" id="dropText">
+            <p class="drop-title">Kéo thả ảnh vào đây</p>
+            <p class="drop-sub">hoặc <span class="link-text" id="browseBtn">chọn từ máy tính</span></p>
+            <p class="drop-formats">PNG · JPG · JPEG · WEBP · BMP</p>
+          </div>
+          <input type="file" id="fileInput" accept="image/*" hidden />
+        </div>
+
+        <button class="btn-predict" id="predictBtn" disabled>
+          <span id="btnText">Phân tích ảnh</span>
+          <span class="spinner" id="spinner" style="display:none;"></span>
+        </button>
+      </div>
+
+      <!-- Divider -->
+      <div class="divider"><span>Kết quả</span></div>
+
+      <!-- Result Section -->
+      <div class="result-section" id="resultSection">
+        <div class="result-placeholder" id="resultPlaceholder">
+          <span>⬆ Upload ảnh và nhấn phân tích để xem kết quả</span>
+        </div>
+
+        <div class="result-content" id="resultContent" style="display:none;">
+          <!-- Top Result -->
+          <div class="result-top">
+            <div class="result-class-icon" id="resultIcon">🌿</div>
+            <div class="result-info">
+              <p class="result-label">Kết quả nhận diện</p>
+              <h2 class="result-class" id="resultClass">--</h2>
+            </div>
+            <div class="result-confidence-badge" id="confidenceBadge">0%</div>
+          </div>
+
+          <!-- All probabilities -->
+          <div class="prob-list" id="probList"></div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      Model: LeafCNN · Dataset: dataset_split_2 · Classes: {{ classes | join(', ') }}
+    </footer>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
